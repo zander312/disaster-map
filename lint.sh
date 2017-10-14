@@ -1,1 +1,1 @@
-prettier ./**/*.js --write
+prettier ./**/*.js --write --no-semi --single-quote

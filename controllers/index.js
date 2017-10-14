@@ -1,8 +1,8 @@
-var express = require("express"),
-  router = express.Router();
+var express = require('express'),
+  router = express.Router()
 
-router.use("/dynamo", require("./dynamo"));
-router.use("/cars", require("./cars"));
+router.use('/dynamo', require('./dynamo'))
+router.use('/cars', require('./cars'))
 
 //routes should not render pages -- included for reference purposes
 // router.get('/', function(req, res) {
@@ -13,7 +13,7 @@ router.use("/cars", require("./cars"));
 //   res.send('Learn about us')
 // })
 
-module.exports = router;
+module.exports = router
 
 //controllers/index.js will be responsible for loading all controllers,
 //which you’ve already implemented. It will also define some more routes but without prefix,
