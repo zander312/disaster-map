@@ -1,10 +1,7 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom'
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import SomeComponent from './components/SomeComponent.js'
+import SomeComponent from "./components/SomeComponent.js";
 
 export default class AppRouter extends React.Component {
   constructor(props) {
@@ -15,7 +12,7 @@ export default class AppRouter extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={SomeComponent}/>
+          <Route exact path="/" component={SomeComponent} />
         </div>
       </Router>
     );
