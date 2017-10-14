@@ -34,7 +34,7 @@ export default class SomeComponent extends React.Component {
         if (res.data.status === 'fail') {
           this.clearFields()
           this.setState({ status: 'fail', err: res.data.err })
-        } else if(res.data.status === 'success') {
+        } else if (res.data.status === 'success') {
           this.clearFields()
           this.setState({ status: 'success' })
         }
