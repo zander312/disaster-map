@@ -7,10 +7,17 @@ var dynamodb = new AWS.DynamoDB()
 // Domestic animals page
 router.post('/putuser', function(req, res) {
   Dynamo.putUser(req.body)
-
-  res.json({
-    animals: 'cows'
-  })
+    .then(data => {
+      res.json({
+        status: 'success'
+      })
+    })
+    .catch(err => {
+      res.json({
+        status: 'fail',
+        err: err
+      })
+    })
 })
 
 // Wild animals page

@@ -31,10 +31,10 @@ export default class SomeComponent extends React.Component {
       })
       .then(res => {
         console.log(res)
-        if (res.status !== 200) {
+        if (res.data.status === 'fail') {
           this.clearFields()
-          this.setState({ status: 'fail' })
-        } else {
+          this.setState({ status: 'fail', err: res.data.err })
+        } else if(res.data.status === 'success') {
           this.clearFields()
           this.setState({ status: 'success' })
         }
@@ -60,6 +60,13 @@ export default class SomeComponent extends React.Component {
         return (
           <Alert bsStyle="success">
             <strong> Success! </strong>
+          </Alert>
+        )
+      }
+      if (this.state.status === 'fail') {
+        return (
+          <Alert bsStyle="danger">
+            <strong>{`Failed! ${this.state.err}`}</strong>
           </Alert>
         )
       }
