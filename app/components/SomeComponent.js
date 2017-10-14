@@ -15,7 +15,7 @@ import {
 export default class SomeComponent extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { animals: '' }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -32,49 +32,70 @@ export default class SomeComponent extends React.Component {
       })
   }
 
+  handleChange(e) {
+    let state = this.state
+    state[e.target.name] = e.target.value
+    this.setState(state, () => {
+      console.log(this.state)
+    })
+  }
+
   render() {
     return (
       <div>
         <Grid>
           <Row>
-            <Col>
+            <Col md={6} mdOffset={3}>
               <form>
                 <Panel
-                  header="input your data"
+                  header="Subscribe to disaster alert list"
                   bsStyle="primary"
                   className={s.panel}
                 >
                   <FieldGroup
                     id="formBasicText"
-                    label="label for input"
+                    label="Phone"
                     type="text"
-                    value={'oi'}
-                    placeholder="Enter text"
-                    onChange={console.log('oi')}
+                    name="phone"
+                    value={this.state.phone}
+                    placeholder="5718300561"
+                    onChange={e => this.handleChange(e)}
                   />
                   <FieldGroup
                     id="formBasicText"
-                    label="label for input"
+                    label="Street Address"
                     type="text"
-                    value={'oi'}
-                    placeholder="Enter text"
-                    onChange={console.log('oi')}
+                    name="address"
+                    value={this.state.address}
+                    placeholder="123 Maple Ave"
+                    onChange={e => this.handleChange(e)}
                   />
                   <FieldGroup
                     id="formBasicText"
-                    label="label for input"
+                    label="City"
                     type="text"
-                    value={'oi'}
-                    placeholder="Enter text"
-                    onChange={console.log('oi')}
+                    name="city"
+                    value={this.state.city}
+                    placeholder="Great Falls"
+                    onChange={e => this.handleChange(e)}
                   />
                   <FieldGroup
                     id="formBasicText"
-                    label="label for input"
+                    label="State"
                     type="text"
-                    value={'oi'}
-                    placeholder="Enter text"
-                    onChange={console.log('oi')}
+                    name="state"
+                    value={this.state.state}
+                    placeholder="VA"
+                    onChange={e => this.handleChange(e)}
+                  />
+                  <FieldGroup
+                    id="formBasicText"
+                    label="Zipcode"
+                    type="text"
+                    name="zipcode"
+                    value={this.state.zipcode}
+                    placeholder="22066"
+                    onChange={e => this.handleChange(e)}
                   />
                   <Button type="submit">Submit</Button>
                 </Panel>
