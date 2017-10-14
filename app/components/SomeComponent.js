@@ -10,7 +10,8 @@ import {
   Grid,
   Row,
   Col,
-  Panel
+  Panel,
+  Alert
 } from 'react-bootstrap'
 
 export default class SomeComponent extends React.Component {
@@ -28,12 +29,41 @@ export default class SomeComponent extends React.Component {
         City: this.state.city,
         Zipcode: this.state.zipcode
       })
-      .then((res) => {
+      .then(res => {
         console.log(res)
+        if (res.status !== 200) {
+          this.clearFields()
+          this.setState({ status: 'fail' })
+        } else {
+          this.clearFields()
+          this.setState({ status: 'success' })
+        }
       })
-      .then((err) => {
+      .then(err => {
         console.log(err)
       })
+  }
+
+  clearFields() {
+    this.setState({
+      phone: '',
+      state: '',
+      address: '',
+      city: '',
+      zipcode: ''
+    })
+  }
+
+  renderAlert() {
+    if (this.state.status) {
+      if (this.state.status === 'success') {
+        return (
+          <Alert bsStyle="success">
+            <strong> Success! </strong>
+          </Alert>
+        )
+      }
+    }
   }
 
   handleChange(e) {
@@ -54,6 +84,7 @@ export default class SomeComponent extends React.Component {
         <Grid>
           <Row>
             <Col md={6} mdOffset={3}>
+              {this.renderAlert()}
               <form
                 onSubmit={e => {
                   this.handleSubmit(e)

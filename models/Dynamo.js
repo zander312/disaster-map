@@ -11,7 +11,7 @@ function putUser(user) {
       State: { S: user.State },
       Address: { S: user.Address },
       City: { S: user.City },
-      Zipcode: {S: user.Zipcode}
+      Zipcode: { S: user.Zipcode }
     }
   }
 
