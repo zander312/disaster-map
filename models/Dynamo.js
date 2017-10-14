@@ -2,18 +2,20 @@ var AWS = require('aws-sdk')
 AWS.config.update({ region: 'us-east-1' })
 var dynamodb = new AWS.DynamoDB()
 
-function putUser(phone, state) {
+function putUser(user) {
+  console.log(user.Phone)
   var params = {
     TableName: 'DisasterUsers',
     Item: {
-      Phone: { S: '5718300561' },
-      State: { S: 'va' },
-      Address: { S: '802 olde georgetown ct' },
-      City: { S: 'Great Falls' }
+      Phone: { S: user.Phone },
+      State: { S: user.State },
+      Address: { S: user.Address },
+      City: { S: user.City },
+      Zipcode: {S: user.Zipcode}
     }
   }
 
-  dynamodb.putItem(params, function(err, data) {
+  dynamodb.putItem(params, (err, data) => {
     if (err) {
       console.log(err)
     } else {

@@ -5,8 +5,9 @@ var AWS = require('aws-sdk')
 AWS.config.update({ region: 'us-east-1' })
 var dynamodb = new AWS.DynamoDB()
 // Domestic animals page
-router.get('/putuser', function(req, res) {
-  Dynamo.putUser()
+router.post('/putuser', function(req, res) {
+  Dynamo.putUser(req.body)
+
   res.json({
     animals: 'cows'
   })

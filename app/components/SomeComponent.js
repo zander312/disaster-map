@@ -1,6 +1,7 @@
 import React from 'react'
 import s from './SomeComponent.scss'
 import axios from 'axios'
+import { UsaStates } from 'usa-states'
 import {
   Button,
   FormGroup,
@@ -18,16 +19,19 @@ export default class SomeComponent extends React.Component {
     this.state = {}
   }
 
-  componentDidMount() {
+  sendUserData(data) {
     axios
-      .get('/dynamo/putuser')
-      .then(
-        function(res) {
-          console.log(res)
-          this.setState({ animals: res.data.animals })
-        }.bind(this)
-      )
-      .then(function(err) {
+      .post('/dynamo/putuser', {
+        Phone: this.state.phone,
+        State: this.state.state,
+        Address: this.state.address,
+        City: this.state.city,
+        Zipcode: this.state.zipcode
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .then((err) => {
         console.log(err)
       })
   }
@@ -35,18 +39,26 @@ export default class SomeComponent extends React.Component {
   handleChange(e) {
     let state = this.state
     state[e.target.name] = e.target.value
-    this.setState(state, () => {
-      console.log(this.state)
-    })
+    this.setState(state)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    this.sendUserData(this.state)
   }
 
   render() {
+    var usStates = new UsaStates()
     return (
       <div>
         <Grid>
           <Row>
             <Col md={6} mdOffset={3}>
-              <form>
+              <form
+                onSubmit={e => {
+                  this.handleSubmit(e)
+                }}
+              >
                 <Panel
                   header="Subscribe to disaster alert list"
                   bsStyle="primary"
@@ -79,15 +91,23 @@ export default class SomeComponent extends React.Component {
                     placeholder="Great Falls"
                     onChange={e => this.handleChange(e)}
                   />
-                  <FieldGroup
-                    id="formBasicText"
-                    label="State"
-                    type="text"
-                    name="state"
-                    value={this.state.state}
-                    placeholder="VA"
-                    onChange={e => this.handleChange(e)}
-                  />
+                  <FormGroup controlId="formControlsSelect">
+                    <ControlLabel>Select</ControlLabel>
+                    <FormControl
+                      onChange={e => this.handleChange(e)}
+                      name="state"
+                      componentClass="select"
+                      placeholder="select"
+                    >
+                      {usStates.states.map((state, i) => {
+                        return (
+                          <option key={i} value={state.abbreviation}>
+                            {state.name}
+                          </option>
+                        )
+                      })}
+                    </FormControl>
+                  </FormGroup>
                   <FieldGroup
                     id="formBasicText"
                     label="Zipcode"
